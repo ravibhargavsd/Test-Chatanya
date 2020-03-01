@@ -1,0 +1,32 @@
+<div class="product-page">
+	<div class="product" *ngFor="let item of products.groups;let i = index;" (click)="gotoDetails(i, item)">
+		<div class="image">
+			<img [src]="item.thumbnail.href">
+		</div>
+		<div class="details">
+			<h4> {{item.name}} </h4>
+			<div class="price">
+				<h5 *ngIf="item.price"> {{item.price.selling | currency}} </h5>
+				<h5 *ngIf="item.priceRange">
+					<s> {{item.priceRange.selling.high | currency}} </s>
+					<b> {{item.priceRange.selling.low | currency}} </b>
+				</h5>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="showCarousel" class="modal">
+	<div class="close">
+		<button (click)="showCarousel = false"> Close </button>
+	</div>
+	<div class="modal-view">
+		<span class="main-span" [ngClass]="{'disabled': cIndex == 0}">
+			<span (click)="nextImage(-1)"> < </span>
+		</span>
+		<img [src]="currentImage" />
+		<span class="main-span" [ngClass]="{'disabled': cIndex == svc.selectedProduct.images.length}">
+			<span (click)="nextImage(1)"> > </span>
+		</span>
+	</div>
+</div>
